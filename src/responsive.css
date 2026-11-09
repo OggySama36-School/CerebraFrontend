@@ -1,0 +1,225 @@
+/* responsive.css
+   Import SAU App.css (trong App.jsx) để các quy tắc dưới đây ghi đè đúng thứ tự.
+   Điểm dừng: <= 860px (tablet) và <= 640px (điện thoại). */
+
+/* ---------- Tablet ---------- */
+@media (max-width: 860px) {
+  .app {
+    padding: 24px 20px 40px;
+  }
+
+  .app-header {
+    margin-bottom: 28px;
+  }
+
+  .result-view__gauge-col,
+  .result-view__detail {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+}
+
+/* ---------- Điện thoại ---------- */
+@media (max-width: 640px) {
+  /* Chừa chỗ cho thanh nút cố định ở đáy (+ vùng an toàn của iPhone) */
+  .app {
+    padding: 16px 16px calc(104px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Header: thương hiệu gọn, thanh bước chiếm hết chiều ngang */
+  .app-header {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+  }
+
+  .app-header p {
+    display: none;
+  }
+
+  .app-header nav {
+    width: 100%;
+  }
+
+  /* Thanh bước -> 4 đoạn tiến trình */
+  .stepper {
+    gap: 6px;
+  }
+
+  .stepper__item {
+    flex: 1;
+  }
+
+  .stepper__item button {
+    display: block;
+    width: 100%;
+    height: 20px; /* vùng chạm đủ lớn cho các bước đã xong */
+    padding: 8px 0;
+    background-color: var(--border-strong);
+    background-clip: content-box;
+    border-radius: 0;
+  }
+
+  .stepper__item--done button {
+    background-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  .stepper__item--current button {
+    background-color: var(--accent);
+  }
+
+  .stepper__item .stepper__dot,
+  .stepper__item .stepper__label {
+    display: none;
+  }
+
+  /* Form: bỏ khung thẻ, trải rộng toàn màn hình */
+  .patient-form {
+    max-width: none;
+    gap: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+  }
+
+  .patient-form__head h2 {
+    font-size: 22px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* 16px để iOS không tự phóng to khi bấm vào ô nhập */
+  .patient-form label {
+    font-size: 13px;
+  }
+
+  .patient-form input,
+  .patient-form select {
+    height: 48px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  /* Thanh nút cố định ở đáy: form và màn kết quả dùng chung kiểu */
+  .patient-form__actions,
+  .result-view__actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .patient-form__actions .btn,
+  .result-view__actions .btn {
+    flex: 2;
+    height: 48px;
+    padding: 0 12px;
+    border-radius: 12px;
+  }
+
+  /* Nút phụ ("Quay lại", "Chỉnh sửa") nằm bên trái, hẹp hơn */
+  .patient-form__actions .btn--ghost,
+  .result-view__actions .btn--ghost {
+    order: -1;
+    flex: 1;
+  }
+
+  /* Màn kết quả */
+  .result-view {
+    gap: 20px;
+  }
+
+  .result-view::before {
+    inset: -40px -16px;
+    background: radial-gradient(
+      ellipse 80% 40% at 50% 20%,
+      color-mix(in srgb, var(--level) 16%, transparent),
+      transparent
+    );
+  }
+
+  .result-view__gauge-col,
+  .result-view__detail {
+    max-width: none;
+  }
+
+  .result-view__gauge {
+    width: min(100%, 340px);
+  }
+
+  .result-view__percent {
+    font-size: clamp(40px, 14vw, 56px);
+  }
+
+  .result-view__badge {
+    margin-top: 10px;
+    padding: 5px 16px;
+    font-size: 14px;
+  }
+
+  .result-view__tiles {
+    gap: 8px;
+  }
+
+  .tile {
+    gap: 4px;
+    padding: 12px;
+  }
+
+  .tile__label {
+    font-size: 11px;
+  }
+
+  .tile__value {
+    font-size: 15px;
+  }
+
+  .result-view__advice {
+    margin: 16px 0 12px;
+    font-size: 14px;
+  }
+
+  .chip {
+    padding: 7px 12px;
+  }
+
+  .result-view__note {
+    margin-top: 14px;
+  }
+}
+
+/* Màn hình rất hẹp (iPhone SE, máy gập) */
+@media (max-width: 360px) {
+  .result-view__tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .tile {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+}
+
+/* Người dùng tắt chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .gauge-value {
+    transition: none;
+  }
+}
